@@ -43,7 +43,7 @@ export default function MainPage() {
             : "Choose your zodiac sign to continue"}
         </h4>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-4 relative">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 py-4 relative">
         {Object.keys(signsTranslations).map((signKey) => {
           const sign = signsTranslations[signKey];
           return (

@@ -16,8 +16,10 @@ export default function HoroscopeItem({
       }`}
       onClick={() => handleSignClick(sign)}
     >
-      <ZodiacSign sign={sign} />
-      <span className="text-gray-300">{dates}</span>
+      <div className="flex flex-col gap-y-2">
+        <ZodiacSign sign={sign} />
+        <span className="text-gray-300 text-xs">{dates}</span>
+      </div>
       <img className="h-6 w-6" src={icon} alt={name} />
     </div>
   );
