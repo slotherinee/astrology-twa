@@ -20,7 +20,7 @@ const defaultContainerVariants: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.015,
+      staggerChildren: 0.02,
     },
   },
 };
@@ -47,7 +47,7 @@ const presetVariants: Record<
     container: defaultContainerVariants,
     item: {
       hidden: { x: 0 },
-      visible: { x: [-5, 5, -5, 5, 0], transition: { duration: 0.15 } },
+      visible: { x: [-5, 5, -5, 5, 0], transition: { duration: 0.2 } },
     },
   },
   scale: {

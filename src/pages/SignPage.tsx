@@ -57,45 +57,44 @@ export default function SignPage() {
   };
 
   return (
-    <div
-      {...handlers}
-      className="flex flex-col justify-center items-center text-center gap-y-8"
-    >
-      {mutation.isError ? (
-        <div className="text-red-500">
-          {language === "ru"
-            ? "Ошибка при получении данных"
-            : "Error fetching horoscope data"}
-        </div>
-      ) : mutation.isPending ? (
-        <Spinner />
-      ) : mutation.data ? (
-        <>
-          <div className="bg-slate-800 w-1/4 rounded-full p-6 flex items-center justify-center">
-            <img src={`icons/${mutation.data.sign}.png`} alt="sign" />
+    <div {...handlers} className="flex flex-col gap-y-2 py-2 min-h-screen">
+      <div className="flex flex-col justify-center items-center text-center gap-y-8">
+        {mutation.isError ? (
+          <div className="text-red-500">
+            {language === "ru"
+              ? "Ошибка при получении данных"
+              : "Error fetching horoscope data"}
           </div>
-          <div className="space-y-4 px-2 text-center">
-            <h2 className="text-2xl font-bold text-gray-300">
-              <ZodiacSign sign={sign as keyof typeof signsTranslations} />{" "}
-              {language === "ru" ? "на" : "for"}{" "}
-              <span
-                className="underline underline-offset-8 cursor-pointer"
-                onClick={() => handlePeriod(period)}
-              >
-                {getPeriodText(period)}
-              </span>
-            </h2>
-            <p className="text-gray-400 text-sm text-left text-pretty">
-              <TextEffect per="char" preset="fade">
-                {mutation.data.horoscope}
-              </TextEffect>
-            </p>
-          </div>
-          <CustomButton onClick={() => navigate("/")}>
-            {language === "ru" ? "На главную" : "Go back to main"}
-          </CustomButton>
-        </>
-      ) : null}
+        ) : mutation.isPending ? (
+          <Spinner />
+        ) : mutation.data ? (
+          <>
+            <div className="bg-slate-800 w-1/4 rounded-full p-6 flex items-center justify-center">
+              <img src={`icons/${mutation.data.sign}.png`} alt="sign" />
+            </div>
+            <div className="space-y-4 px-2 text-center">
+              <h2 className="text-2xl font-bold text-gray-300">
+                <ZodiacSign sign={sign as keyof typeof signsTranslations} />{" "}
+                {language === "ru" ? "на" : "for"}{" "}
+                <span
+                  className="underline underline-offset-8 cursor-pointer"
+                  onClick={() => handlePeriod(period)}
+                >
+                  {getPeriodText(period)}
+                </span>
+              </h2>
+              <p className="text-gray-400 text-sm text-left">
+                <TextEffect per="char" preset="fade">
+                  {mutation.data.horoscope}
+                </TextEffect>
+              </p>
+            </div>
+            <CustomButton onClick={() => navigate("/")}>
+              {language === "ru" ? "На главную" : "Go back to main"}
+            </CustomButton>
+          </>
+        ) : null}
+      </div>
     </div>
   );
 }

@@ -7,7 +7,7 @@ export default function App() {
     <main className="container mx-auto px-4 py-2 text-white w-full relative max-w-full overflow-hidden">
       <div className="flex flex-col gap-y-8">
         <LanguageSwitcher />
-        <div className="flex flex-col gap-y-2 py-2 min-h-screen">
+        <div>
           <Outlet />
         </div>
       </div>

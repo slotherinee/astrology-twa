@@ -30,7 +30,12 @@ export default function MainPage() {
   }, [selectedSign, navigate]);
 
   return (
-    <>
+    <motion.div
+      className="flex flex-col gap-y-2 py-2 min-h-screen"
+      initial={{ opacity: 0, y: 50, scale: 0.8 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    >
       <div className="space-y-4">
         <h1 className="text-center text-2xl font-bold">
           {language === "ru"
@@ -47,12 +52,7 @@ export default function MainPage() {
         {Object.keys(signsTranslations).map((signKey) => {
           const sign = signsTranslations[signKey];
           return (
-            <motion.div
-              key={signKey}
-              initial={{ opacity: 0, y: 50, scale: 0.8 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-            >
+            <div key={signKey}>
               <HoroscopeItem
                 sign={signKey}
                 name={sign[language]}
@@ -61,7 +61,7 @@ export default function MainPage() {
                 selectedSign={selectedSign}
                 handleSignClick={handleSignClick}
               />
-            </motion.div>
+            </div>
           );
         })}
       </div>
@@ -74,6 +74,6 @@ export default function MainPage() {
       >
         {language === "ru" ? "Узнать гороскоп" : "Get horoscope"}
       </CustomButton>
-    </>
+    </motion.div>
   );
 }
