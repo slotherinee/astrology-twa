@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import CustomButton from "../components/CustomButton";
 import { useMutation } from "@tanstack/react-query";
 import { postData } from "../helper/getData";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Spinner from "../components/Spinner";
 import { useLanguage } from "../context/useLanguage";
 import ZodiacSign from "../components/ZodiacSign";
@@ -15,6 +15,7 @@ export default function SignPage() {
   const { sign } = useParams();
   const navigate = useNavigate();
   const { language } = useLanguage();
+  const [period, setPeriod] = useState<"today" | "tomorrow">("today");
 
   useEffect(() => {
     WebApp.BackButton.onClick(() => navigate("/"));
@@ -33,16 +34,27 @@ export default function SignPage() {
   useEffect(() => {
     mutation.mutate({
       sign,
-      period: "today",
+      period,
       language: language === "ru" ? "original" : "translated",
     });
-  }, [sign, language]);
+  }, [sign, language, period]);
+
+  const handlePeriod = (period: "today" | "tomorrow") => {
+    setPeriod(period === "today" ? "tomorrow" : "today");
+  };
 
   const handlers = useSwipeable({
     onSwipedRight: () => navigate(-1),
     trackMouse: false,
     trackTouch: true,
   });
+
+  const getPeriodText = (period: "today" | "tomorrow") => {
+    if (language === "ru") {
+      return period === "today" ? "сегодня" : "завтра";
+    }
+    return period;
+  };
 
   return (
     <div
@@ -64,7 +76,14 @@ export default function SignPage() {
           </div>
           <div className="space-y-4 px-2 text-center">
             <h2 className="text-2xl font-bold text-gray-300">
-              <ZodiacSign sign={sign as keyof typeof signsTranslations} />
+              <ZodiacSign sign={sign as keyof typeof signsTranslations} />{" "}
+              {language === "ru" ? "на" : "for"}{" "}
+              <span
+                className="underline underline-offset-8 cursor-pointer"
+                onClick={() => handlePeriod(period)}
+              >
+                {getPeriodText(period)}
+              </span>
             </h2>
             <p className="text-gray-400 text-sm text-left text-pretty">
               <TextEffect per="char" preset="fade">
